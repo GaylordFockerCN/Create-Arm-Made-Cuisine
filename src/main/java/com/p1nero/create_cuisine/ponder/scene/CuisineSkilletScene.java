@@ -2,6 +2,7 @@ package com.p1nero.create_cuisine.ponder.scene;
 
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllShapes;
+import com.simibubi.create.Create;
 import com.simibubi.create.content.kinetics.mechanicalArm.ArmBlockEntity;
 import com.simibubi.create.foundation.ponder.CreateSceneBuilder;
 import dev.xkmc.cuisinedelight.content.block.CuisineSkilletBlockEntity;
@@ -15,10 +16,14 @@ import net.createmod.ponder.api.scene.SceneBuildingUtil;
 import net.createmod.ponder.api.scene.Selection;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.registries.ForgeRegistries;
 import vectorwing.farmersdelight.common.registry.ModItems;
+
+import java.util.Objects;
 
 public class CuisineSkilletScene {
     public static void addFood(SceneBuilder builder, SceneBuildingUtil util) {
@@ -74,7 +79,7 @@ public class CuisineSkilletScene {
         scene.world().showSection(input, Direction.DOWN);
         scene.idle(20);
 
-        ItemStack pack = new ItemStack(AllBlocks.CARDBOARD_BLOCK);
+        ItemStack pack = new ItemStack(Objects.requireNonNull(ForgeRegistries.ITEMS.getValue(ResourceLocation.fromNamespaceAndPath(Create.ID, "cardboard_package_12x12"))));
         scene.world().createItemOnBeltLike(inputDepot, Direction.NORTH, pack);
         scene.idle(20);
         scene.world().setKineticSpeed(armSel, -48);
