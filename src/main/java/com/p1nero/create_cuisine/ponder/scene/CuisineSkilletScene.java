@@ -16,11 +16,11 @@ import net.createmod.ponder.api.scene.SceneBuildingUtil;
 import net.createmod.ponder.api.scene.Selection;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.registries.ForgeRegistries;
 import vectorwing.farmersdelight.common.registry.ModItems;
 
 import java.util.Objects;
@@ -79,7 +79,7 @@ public class CuisineSkilletScene {
         scene.world().showSection(input, Direction.DOWN);
         scene.idle(20);
 
-        ItemStack pack = new ItemStack(Objects.requireNonNull(ForgeRegistries.ITEMS.getValue(ResourceLocation.fromNamespaceAndPath(Create.ID, "cardboard_package_12x12"))));
+        ItemStack pack = new ItemStack(Objects.requireNonNull(BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(Create.ID, "cardboard_package_12x12"))));
         scene.world().createItemOnBeltLike(inputDepot, Direction.NORTH, pack);
         scene.idle(20);
         scene.world().setKineticSpeed(armSel, -48);
@@ -103,7 +103,7 @@ public class CuisineSkilletScene {
         scene.world().showSection(input, Direction.DOWN);
         scene.idle(20);
 
-        ItemStack spatula = new ItemStack(CDItems.SPATULA);
+        ItemStack spatula = new ItemStack(CDItems.SPATULA.get());
         scene.world().createItemOnBeltLike(inputDepot, Direction.NORTH, spatula);
         scene.idle(20);
         scene.world().setKineticSpeed(armSel, -48);
@@ -169,7 +169,7 @@ public class CuisineSkilletScene {
         scene.overlay().chaseBoundingBoxOutline(PonderPalette.OUTPUT, third, depotBounds.move(0, 1, 3), 30);
         scene.idle(30);
 
-        ItemStack plate = new ItemStack(CDItems.PLATE);
+        ItemStack plate = new ItemStack(CDItems.PLATE.get());
         ItemStack plateFood = new ItemStack(PlateFood.MEAT_WITH_VEGETABLES.item);
         scene.world().createItemOnBeltLike(inputDepot, Direction.NORTH, plate);
         scene.idle(20);

@@ -2,28 +2,43 @@ package com.p1nero.create_cuisine.interaction_points;
 
 import com.p1nero.create_cuisine.CreateCuisineMod;
 import com.simibubi.create.api.registry.CreateBuiltInRegistries;
-import com.simibubi.create.infrastructure.ponder.AllCreatePonderTags;
-import dev.xkmc.cuisinedelight.content.item.CuisineSkilletItem;
-import net.createmod.catnip.platform.ForgeRegisteredObjectsHelper;
-import net.createmod.ponder.api.registration.MultiTagBuilder;
-import net.createmod.ponder.api.registration.PonderPlugin;
-import net.createmod.ponder.api.registration.PonderTagRegistrationHelper;
-import net.createmod.ponder.foundation.PonderIndex;
+import com.simibubi.create.api.registry.CreateRegistries;
+import com.simibubi.create.content.kinetics.mechanicalArm.ArmInteractionPointType;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.registries.ForgeRegistries;
-import org.jetbrains.annotations.NotNull;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.event.lifecycle.FMLConstructModEvent;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
-@Mod.EventBusSubscriber(modid = CreateCuisineMod.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
+import java.util.function.Supplier;
+
+@EventBusSubscriber(modid = CreateCuisineMod.MODID, bus = EventBusSubscriber.Bus.MOD)
 public class CDInteractionPoints {
+
+    private static final DeferredRegister<ArmInteractionPointType> REGISTER = DeferredRegister
+            .create(CreateRegistries.ARM_INTERACTION_POINT_TYPE, CreateCuisineMod.MODID);
+
     @SubscribeEvent
-    public static void register(FMLCommonSetupEvent event) {
-        Registry.register(CreateBuiltInRegistries.ARM_INTERACTION_POINT_TYPE, ResourceLocation.fromNamespaceAndPath(CreateCuisineMod.MODID, "cuisine_skillet"), new CuisineSkilletArmInteractionPoint.Type());
+    public static void register(FMLConstructModEvent event) {
+        register(SKILLET, CuisineSkilletArmInteractionPoint.Type::new);
     }
 
+    //spotless:off
+    public static final DeferredHolder<ArmInteractionPointType, ArmInteractionPointType> SKILLET = holder("cuisine_skillet");
+    //spotless:on
+
+    public static void register(IEventBus modBus) {
+        REGISTER.register(modBus);
+    }
+
+    public static void register(DeferredHolder<ArmInteractionPointType, ArmInteractionPointType> holder, Supplier<? extends ArmInteractionPointType> supplier) {
+        REGISTER.register(holder.getId().getPath(), supplier);
+    }
+
+    private static DeferredHolder<ArmInteractionPointType, ArmInteractionPointType> holder(String name) {
+        return DeferredHolder.create(CreateRegistries.ARM_INTERACTION_POINT_TYPE, ResourceLocation.fromNamespaceAndPath(CreateCuisineMod.MODID, name));
+    }
 }

@@ -11,6 +11,7 @@ import dev.xkmc.cuisinedelight.content.logic.CookingData;
 import dev.xkmc.cuisinedelight.content.logic.IngredientConfig;
 import dev.xkmc.cuisinedelight.content.recipe.BaseCuisineRecipe;
 import dev.xkmc.cuisinedelight.init.data.CDConfig;
+import dev.xkmc.l2core.init.reg.ench.EnchHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
@@ -21,7 +22,7 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.items.ItemStackHandler;
+import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.common.registry.ModSounds;
 
@@ -72,11 +73,11 @@ public class CuisineSkilletArmInteractionPoint extends ArmInteractionPoint {
                     } else {
                         CookingData data = be.cookingData;
                         data.stir(level.getGameTime(), 0);
-                        CookedFoodData food = new CookedFoodData(data);
+                        CookedFoodData food = CookedFoodData.of(data);
                         ItemStack foodStack = BaseCuisineRecipe.findBestMatch(level, food);
                         be.cookingData = new CookingData();
                         be.sync();
-                        ExperienceOrb.award(((ServerLevel) level), Vec3.atCenterOf(pos), food.score * food.size / 100);
+                        ExperienceOrb.award(((ServerLevel) level), Vec3.atCenterOf(pos), food.score() * food.size() / 100);
                         return foodStack;
                     }
                 }
@@ -117,11 +118,11 @@ public class CuisineSkilletArmInteractionPoint extends ArmInteractionPoint {
                 return stack;
             }
 
-            if (be.cookingData.contents.size() >= CDConfig.COMMON.maxIngredient.get()) {
+            if (be.cookingData.contents.size() >= CDConfig.SERVER.maxIngredient.get()) {
                 return stack;
             }
 
-            int count = 1 + be.baseItem.getEnchantmentLevel(Enchantments.BLOCK_EFFICIENCY);
+            int count = 1 + EnchHelper.getLv(be.baseItem, Enchantments.EFFICIENCY);
             if (be.slowCook()) {
                 be.cookingData.setSpeed(0.5F);
             }
@@ -147,7 +148,7 @@ public class CuisineSkilletArmInteractionPoint extends ArmInteractionPoint {
     public static class Type extends ArmInteractionPointType {
         @Override
         public boolean canCreatePoint(Level level, BlockPos pos, BlockState state) {
-            return level.getBlockEntity(pos) instanceof CuisineSkilletBlockEntity be && be.canCook() && be.cookingData.contents.size() < CDConfig.COMMON.maxIngredient.get();
+            return level.getBlockEntity(pos) instanceof CuisineSkilletBlockEntity be && be.canCook() && be.cookingData.contents.size() < CDConfig.SERVER.maxIngredient.get();
         }
 
         @Nullable
