@@ -1,0 +1,9 @@
+// 1.21.1	2025-06-16T23:46:07.5773675	Recipes
+9ecbc5185d935ea8678e01c40e2d82fc476e61e8 data/create_cuisine/advancement/recipes/food/compat/meat_pasta.json
+1e9739df0f71ece12e4c8f5d913a7202cc98f149 data/create_cuisine/advancement/recipes/food/compat/meat_platter.json
+1229120d2068d60922b3611bc82fdaa4d7c4034f data/create_cuisine/advancement/recipes/food/compat/scrambled_egg_and_tomato.json
+c737fb3c5fb326c0147a69699e57549accf34e52 data/create_cuisine/advancement/recipes/food/compat/vegetable_platter.json
+e71fd7bdcf01d7bc4dba38b2ebf28fa386e69458 data/create_cuisine/recipe/compat/meat_pasta.json
+7b5c51f628c40578c1a1b6240e3a6503d7321dd0 data/create_cuisine/recipe/compat/meat_platter.json
+62f2a0318cc973c7d73ad8f3cb4e4d46111d7753 data/create_cuisine/recipe/compat/scrambled_egg_and_tomato.json
+8b6e5da0d0a423f2f0371d7c1c6f313adf79f559 data/create_cuisine/recipe/compat/vegetable_platter.json
