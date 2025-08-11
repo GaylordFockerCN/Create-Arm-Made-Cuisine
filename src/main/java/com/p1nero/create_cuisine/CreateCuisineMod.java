@@ -68,10 +68,10 @@ public class CreateCuisineMod {
     }
 
     private void gatherData(final GatherDataEvent event) {
-        event.getGenerator().addProvider(
-                event.includeServer(),
-                new CompatRecipeProvider(event.getGenerator().getPackOutput(), event.getLookupProvider())
-        );
+//        event.getGenerator().addProvider(
+//                event.includeServer(),
+//                new CompatRecipeProvider(event.getGenerator().getPackOutput(), event.getLookupProvider())
+//        );
     }
 
 }

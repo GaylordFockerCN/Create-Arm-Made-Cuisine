@@ -1,5 +1,6 @@
 package com.p1nero.create_cuisine.interaction_points;
 
+import com.simibubi.create.content.kinetics.mechanicalArm.ArmBlockEntity;
 import com.simibubi.create.content.kinetics.mechanicalArm.ArmInteractionPoint;
 import com.simibubi.create.content.kinetics.mechanicalArm.ArmInteractionPointType;
 import com.simibubi.create.content.logistics.box.PackageItem;
@@ -36,8 +37,9 @@ public class CuisineSkilletArmInteractionPoint extends ArmInteractionPoint {
         return Vec3.upFromBottomCenterOf(pos, .125);
     }
 
+
     @Override
-    public int getSlotCount() {
+    public int getSlotCount(ArmBlockEntity armBlockEntity) {
         return 1;
     }
 
@@ -46,7 +48,7 @@ public class CuisineSkilletArmInteractionPoint extends ArmInteractionPoint {
      * @return 剩余物品
      */
     @Override
-    public ItemStack insert(ItemStack stack, boolean simulate) {
+    public ItemStack insert(ArmBlockEntity armBlockEntity, ItemStack stack, boolean simulate) {
         if (level.getBlockEntity(pos) instanceof CuisineSkilletBlockEntity be) {
             ItemStack input = stack.copy();
 
@@ -141,7 +143,7 @@ public class CuisineSkilletArmInteractionPoint extends ArmInteractionPoint {
     }
 
     @Override
-    public ItemStack extract(int slot, int amount, boolean simulate) {
+    public ItemStack extract(ArmBlockEntity armBlockEntity, int slot, int amount, boolean simulate) {
         return ItemStack.EMPTY;
     }
 
