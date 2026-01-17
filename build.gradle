@@ -3,6 +3,7 @@ plugins {
     id 'maven-publish'
     id 'net.neoforged.moddev' version '2.0.80'
     id 'idea'
+    id("me.modmuss50.mod-publish-plugin") version "1.1.0"
 }
 
 tasks.named('wrapper', Wrapper).configure {
@@ -52,6 +53,7 @@ repositories {
 
 base {
     archivesName = mod_id
+    version = getFullModVersion()
 }
 
 // Mojang ships Java 21 to end users starting in 1.20.5, so mods should target Java 21.
@@ -219,4 +221,37 @@ idea {
         downloadSources = true
         downloadJavadoc = true
     }
+}
+
+def getFullModVersion() {
+    return "${mod_version}-mc${minecraft_version}-neoforge"
+}
+
+publishMods {
+    def releaseNotesFile = project.file("RELEASE_NOTES.md")
+    def releaseNotesContent = releaseNotesFile.text
+
+    changelog = """
+|**Tested against:**
+|- **NeoForge:** ${neo_version}
+|- **Minecraft:** ${minecraft_version}
+|- **Create:** ${create_version}
+|
+|${releaseNotesContent}
+""".stripMargin().trim()
+
+    modLoaders.add("neoforge")
+    type = STABLE
+    displayName = getFullModVersion()
+    file = tasks.jar.archiveFile
+
+    curseforge {
+        accessToken = System.getenv("CURSEFORGE_TOKEN")
+        projectId = "1267351"
+        minecraftVersions.add(minecraft_version)
+        projectSlug = "create-arm-made-cuisine"
+
+        requires("create", "cuisine-delight")
+    }
+
 }

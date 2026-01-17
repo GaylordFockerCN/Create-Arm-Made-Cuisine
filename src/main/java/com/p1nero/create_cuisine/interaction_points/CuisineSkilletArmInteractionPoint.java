@@ -67,7 +67,7 @@ public class CuisineSkilletArmInteractionPoint extends ArmInteractionPoint {
             }
 
             //装走
-            if(input.getItem() instanceof PlateItem){
+            if(input.getItem() instanceof PlateItem && input.getCount() == 1){
                 if (!be.cookingData.contents.isEmpty()) {
                     input.shrink(1);
                     if(simulate) {

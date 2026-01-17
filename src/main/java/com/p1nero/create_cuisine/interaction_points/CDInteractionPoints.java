@@ -15,7 +15,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.function.Supplier;
 
-@EventBusSubscriber(modid = CreateCuisineMod.MODID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = CreateCuisineMod.MODID)
 public class CDInteractionPoints {
 
     private static final DeferredRegister<ArmInteractionPointType> REGISTER = DeferredRegister

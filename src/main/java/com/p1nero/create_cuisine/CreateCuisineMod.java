@@ -39,7 +39,7 @@ public class CreateCuisineMod {
 
     }
 
-    @EventBusSubscriber(modid = MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+    @EventBusSubscriber(modid = MODID, value = Dist.CLIENT)
     private static class ClientEvents {
 
         @SubscribeEvent
