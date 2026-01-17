@@ -21,6 +21,7 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
 import vectorwing.farmersdelight.common.registry.ModSounds;
@@ -64,7 +65,7 @@ public class CuisineSkilletArmInteractionPoint extends ArmInteractionPoint {
             }
 
             //装走
-            if(input.getItem() instanceof PlateItem){
+            if(input.getItem() instanceof PlateItem && input.getCount() == 1){
                 if (!be.cookingData.contents.isEmpty()) {
                     input.shrink(1);
                     if(simulate) {

@@ -41,13 +41,11 @@ import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 
-// The value here should match an entry in the META-INF/mods.toml file
 @Mod(CreateCuisineMod.MODID)
 public class CreateCuisineMod {
 
-    // Define mod id in a common place for everything to reference
     public static final String MODID = "create_cuisine";
-    // Directly reference a slf4j logger
+
     private static final Logger LOGGER = LogUtils.getLogger();
 
     public CreateCuisineMod() {
